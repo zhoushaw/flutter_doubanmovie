@@ -11,10 +11,14 @@ class HotMoviesItemListWidget extends StatefulWidget {
   }
 }
 
-class HotMoviesItemListWidgetState extends State<HotMoviesItemListWidget> {
+class HotMoviesItemListWidgetState extends State<HotMoviesItemListWidget> with AutomaticKeepAliveClientMixin {
 
   List<HotMovieData> hotMovies = new List<HotMovieData>();
 
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true; //返回 true，表示不会被回收
+  
   @override 
   void initState() {
     // TODO: implement initState
@@ -29,38 +33,37 @@ class HotMoviesItemListWidgetState extends State<HotMoviesItemListWidget> {
     
     if (response.statusCode == 200) {
       var responseJson  = json.decode(response.body);
-      print(response.body);
+      for (dynamic data in responseJson['subjects']) {
+        HotMovieData hotMovieData = HotMovieData.fromJson(data);
+        serverListData.add(hotMovieData);
+      }
+      setState(() {
+        hotMovies = serverListData;
+      });
     }
-    // var data = HotMovieData('反贪风暴4', 6.3, '林德禄', '古天乐/郑嘉颖/林峯', 29013,
-    //     'https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2551353482.webp');
-    // setState(() {
-    //   hotMovies.add(data);
-    //   hotMovies.add(data);
-    //   hotMovies.add(data);
-    //   hotMovies.add(data);
-    //   hotMovies.add(data);
-    //   hotMovies.add(data);
-    //   hotMovies.add(data);
-    //   hotMovies.add(data);
-    // });  
-    return null;
   }
 
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return ListView.separated(
-      itemCount: hotMovies.length,
-      itemBuilder: (context,index) {
-        return HotMovieItemWidget(hotMovies[index]);
-      },
-      separatorBuilder: (content,index) {
-        return Divider(
-          height: 1,
-          color: Colors.black26
-        );
-      },
-    );
+    if (hotMovies == null || hotMovies.isEmpty) {
+      return Center(
+        child: CircularProgressIndicator()
+      );
+    } else {
+      return ListView.separated(
+        itemCount: hotMovies.length,
+        itemBuilder: (context,index) {
+          return HotMovieItemWidget(hotMovies[index]);
+        },
+        separatorBuilder: (content,index) {
+          return Divider(
+            height: 1,
+            color: Colors.black26
+          );
+        },
+      );
+    }
   }
 }

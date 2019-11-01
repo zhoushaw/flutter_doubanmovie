@@ -21,7 +21,7 @@ class HotMovieItemWidgetState extends State<HotMovieItemWidget> {
       padding: EdgeInsets.all(20),
       child: Row(children: <Widget>[
         Image.network(
-          widget.hotMovieData.images,
+          widget.hotMovieData.images.medium,
           width: 80,
           height: 120,
           fit: BoxFit.cover
@@ -36,19 +36,19 @@ class HotMovieItemWidgetState extends State<HotMovieItemWidget> {
               children: <Widget>[
                 Text(
                   widget.hotMovieData.title,
-                  style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600)
+                  style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600)
                 ),
                 Text(
-                  widget.hotMovieData.rating.toString(),
-                  style: TextStyle(fontSize: 16,color: Colors.black54)
+                  widget.hotMovieData.rating.average.toString(),
+                  style: TextStyle(fontSize: 14,color: Colors.black54)
                 ),
                 Text(
-                  '导演:' + widget.hotMovieData.directors,
-                  style: TextStyle(fontSize: 16,color: Colors.black54)
+                  '导演:' + widget.hotMovieData.getDirectors(),
+                  style: TextStyle(fontSize: 14,color: Colors.black54)
                 ),
                 Text(
-                  '主演:' + widget.hotMovieData.casts,
-                  style: TextStyle(fontSize: 16,color: Colors.black54)
+                  '主演:' + widget.hotMovieData.getCasts(),
+                  style: TextStyle(fontSize: 14,color: Colors.black54)
                 )
               ],
             ),
@@ -59,7 +59,7 @@ class HotMovieItemWidgetState extends State<HotMovieItemWidget> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(widget.hotMovieData.watchedPeople.toString()+'人看过',style: TextStyle(color: Colors.red,fontSize: 14)),
+              Text(widget.hotMovieData.collectCount.toString()+'人看过',style: TextStyle(color: Colors.red,fontSize: 14)),
               OutlineButton(
                 child: Text('购票',style: TextStyle(fontSize: 16)),
                 color: Colors.red,

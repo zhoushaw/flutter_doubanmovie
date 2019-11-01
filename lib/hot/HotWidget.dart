@@ -10,6 +10,9 @@ class HotWidget extends StatefulWidget {
 }
 
 class HotWidgetState extends State<HotWidget> {
+
+  String curCity = '深圳';
+
   @override
   Widget build(BuildContext content) {
     return Column(
@@ -18,7 +21,12 @@ class HotWidgetState extends State<HotWidget> {
           padding: EdgeInsets.all(12.0),
           child: Row(
             children: <Widget>[
-              Text('深圳', style: TextStyle(fontSize: 16)),
+              GestureDetector(
+                child: Text(curCity, style: TextStyle(fontSize: 16)),
+                onTap: () {
+                  Navigator.pushNamed(context, '/Citys', arguments: curCity);
+                },
+              ),
               Icon(Icons.arrow_drop_down),
               Expanded(
                   flex: 1,
@@ -26,7 +34,7 @@ class HotWidgetState extends State<HotWidget> {
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 16),
                     decoration: InputDecoration(
-                        hintText: '\uE8b6 电影 / 电视剧 / 影人',
+                        hintText: '电影 / 电视剧 / 影人',
                         hintStyle: TextStyle(
                             fontFamily: 'MaterialIcons', fontSize: 16),
                         contentPadding: EdgeInsets.only(bottom: 8, top: 8),
@@ -55,19 +63,13 @@ class HotWidgetState extends State<HotWidget> {
                       ),
                     ),
                     Expanded(
-                      child: Container(
-                        child: TabBarView(
-                          children: <Widget>[
-                            Center(
-                              child: HotMoviesItemListWidget()
-                            ),
-                            Center(
-                              child: Text('上映')
-                            )
-                          ],
-                        )
-                      )
-                    )
+                        child: Container(
+                            child: TabBarView(
+                      children: <Widget>[
+                        Center(child: HotMoviesItemListWidget()),
+                        Center(child: Text('上映'))
+                      ],
+                    )))
                   ],
                 )))
       ],

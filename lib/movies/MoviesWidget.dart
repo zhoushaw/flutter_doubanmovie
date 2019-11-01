@@ -23,7 +23,7 @@ class MoviesWidgetState extends State<MoviesWidget> {
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 16),
                     decoration: InputDecoration(
-                        hintText: '\uE8b6 电影 / 电视剧 / 影人',
+                        hintText: '电影 / 电视剧 / 影人',
                         hintStyle: TextStyle(
                             fontFamily: 'MaterialIcons', fontSize: 16),
                         contentPadding: EdgeInsets.only(bottom: 8, top: 8),
